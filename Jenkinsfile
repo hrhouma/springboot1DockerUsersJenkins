@@ -34,7 +34,7 @@ pipeline {
 	            // Add the Jenkins user to the Docker group
 	            sh 'sudo usermod -aG docker jenkins'
 	            // Start and enable Docker service
-	            sh 'sudo systemctl start docker'
+	            sh 'sudo systemctl restart docker'
 	            sh 'sudo systemctl enable docker'
 	
 	            // Install Docker Compose
