@@ -12,7 +12,7 @@ pipeline {
 			steps {
 				script {
 					// Install Java
-					sh 'sudo apt-get update'
+					//sh 'sudo apt-get update'
 					sh 'sudo apt-get install -y openjdk-17-jdk'
 					sh 'java -version'
 
