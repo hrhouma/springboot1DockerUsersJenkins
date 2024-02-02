@@ -12,12 +12,29 @@ pipeline {
             steps {
                 script {
                     // Installer Java, Docker, Docker Compose et Maven si nécessaire
-                    sh 'sudo -s apt-get update && sudo -s apt-get install -y openjdk-17-jdk'
-                    sh 'sudo -s apt-get install -y maven'
-                    sh 'sudo -s apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common'
-                    sh 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo -s apt-key add -'
-                    sh 'sudo -s add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"'
-                    sh 'sudo -s apt-get update && sudo -s apt-get install -y docker-ce docker-ce-cli containerd.io'
+                   // Commands to install Java
+                    sh 'sudo apt-get update'
+                    sh 'sudo apt-get install -y openjdk-17-jdk'
+                    // Verify Java installation
+                    sh 'java -version'
+
+                    // Commands to install Maven
+                    sh 'sudo apt-get install -y maven'
+                    // Verify Maven installation
+                    sh 'mvn -v'
+
+                    // Commands to install Docker
+                    sh 'sudo apt-get install -y ca-certificates curl gnupg'
+                    sh 'sudo install -m 0755 -d /etc/apt/keyrings'
+                    sh 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg'
+                    sh 'sudo chmod a+r /etc/apt/keyrings/docker.gpg'
+                    sh "echo \"deb [arch=\$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu \$(. /etc/os-release && echo \$VERSION_CODENAME) stable\" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null"
+                    sh 'sudo apt-get update'
+                    sh 'sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin'
+                    // Verify Docker installation
+                    sh 'docker version'
+                    // Add Jenkins user to Docker group (replace 'jenkins' with actual Jenkins user if different)
+                    sh 'sudo usermod -aG docker jenkins'
                     sh 'sudo -s usermod -aG docker \$(whoami)'
                     sh 'sudo -s systemctl start docker'
                     sh 'sudo -s systemctl enable docker'
