@@ -8,6 +8,36 @@ pipeline {
         DATABASE_PASSWORD = 'postgres'
     }
     stages {
+        stage('Setup Environment') {
+            steps {
+                script {
+                    // Installer Java, Docker, Docker Compose et Maven si nécessaire
+                    sh 'sudo apt-get update && sudo apt-get install -y openjdk-17-jdk'
+                    sh 'sudo apt-get install -y maven'
+                    sh 'sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common'
+                    sh 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -'
+                    sh 'sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"'
+                    sh 'sudo apt-get update && sudo apt-get install -y docker-ce docker-ce-cli containerd.io'
+                    sh 'sudo usermod -aG docker \$(whoami)'
+                    sh 'sudo systemctl start docker'
+                    sh 'sudo systemctl enable docker'
+                    sh 'sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-\$(uname -s)-\$(uname -m)" -o /usr/local/bin/docker-compose'
+                    sh 'sudo chmod +x /usr/local/bin/docker-compose'
+                }
+            }
+        }
+        stage('Checkout Code') {
+            steps {
+                checkout scm
+            }
+        }
+        stage('Build JAR') {
+            steps {
+                script {
+                    sh 'mvn clean package -DskipTests'
+                }
+            }
+        }
         stage('Build') {
             steps {
                 echo 'Building Docker Image...'
@@ -23,16 +53,14 @@ pipeline {
         stage('Test') {
             steps {
                 echo 'Running Tests...'
-                // Ici vous pouvez ajouter des étapes pour exécuter vos tests.
-                // Par exemple, si vous avez des tests d'intégration ou d'API, vous les exécuteriez ici.
-                // sh 'mvn test'
+                // Placez ici les commandes pour exécuter vos tests
             }
         }
         stage('Publish') {
             steps {
                 echo 'Publishing Image to Docker Hub...'
                 withCredentials([usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
-                    sh 'docker login -u $DOCKERHUB_USERNAME -p $DOCKERHUB_PASSWORD'
+                    sh 'echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin'
                     sh "docker push ${DOCKER_IMAGE}"
                 }
             }
@@ -42,8 +70,7 @@ pipeline {
         always {
             echo 'Cleaning up...'
             sh 'docker-compose -f docker-compose.yml down'
-            // Nettoyage des images Docker non taggées
-            sh 'docker rmi $(docker images -f "dangling=true" -q) || true'
+            sh 'docker rmi \$(docker images -f "dangling=true" -q) || true'
         }
     }
 }
