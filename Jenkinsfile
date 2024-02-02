@@ -9,40 +9,40 @@ pipeline {
     }
     stages {
         stage('Setup Environment') {
-			steps {
-				script {
-					// Install Java
-					//sh 'sudo apt-get update'
-					sh 'sudo apt-get install -y openjdk-17-jdk'
-					sh 'java -version'
-
-					// Install Maven
-					sh 'sudo apt-get install -y maven'
-					sh 'mvn -v'
-
-					// Install Docker
-					sh 'sudo apt-get install -y ca-certificates curl gnupg lsb-release'
-					sh 'sudo mkdir -p /etc/apt/keyrings'
-					sh 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg'
-					// Here we use "jammy" directly instead of "$(lsb_release -cs)"
-					sh 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu jammy stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null'
-					//sh 'sudo apt-get update'
-					sh 'sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin'
-					sh 'docker --version'
-
-					// Add the Jenkins user to the Docker group
-					sh 'sudo usermod -aG docker jenkins'
-					// Start and enable Docker service
-					sh 'sudo systemctl start docker'
-					sh 'sudo systemctl enable docker'
-
-					// Install Docker Compose
-					sh 'sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose'
-					sh 'sudo chmod +x /usr/local/bin/docker-compose'
-					sh 'docker-compose --version'
-				}
-			}
-		}
+	    steps {
+	        script {
+	            // Install Java
+	            //sh 'sudo apt-get update'
+	            sh 'sudo apt-get install -y openjdk-17-jdk'
+	            sh 'java -version'
+	
+	            // Install Maven
+	            sh 'sudo apt-get install -y maven'
+	            sh 'mvn -v'
+	
+	            // Install Docker
+	            sh 'sudo apt-get install -y ca-certificates curl gnupg'
+	            sh 'sudo install -m 0755 -d /etc/apt/keyrings'
+	            sh 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg'
+	            sh 'sudo chmod a+r /etc/apt/keyrings/docker.gpg'
+	            sh 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo $VERSION_CODENAME) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null'
+	            sh 'sudo apt-get update'
+	            sh 'sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin'
+	            sh 'docker --version'
+	
+	            // Add the Jenkins user to the Docker group
+	            sh 'sudo usermod -aG docker jenkins'
+	            // Start and enable Docker service
+	            sh 'sudo systemctl start docker'
+	            sh 'sudo systemctl enable docker'
+	
+	            // Install Docker Compose
+	            sh 'sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose'
+	            sh 'sudo chmod +x /usr/local/bin/docker-compose'
+	            sh 'docker-compose --version'
+	        }
+	    }
+	}
         stage('Checkout Code') {
             steps {
                 checkout scm
