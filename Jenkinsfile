@@ -12,17 +12,17 @@ pipeline {
             steps {
                 script {
                     // Installer Java, Docker, Docker Compose et Maven si nécessaire
-                    sh 'sudo apt-get update && sudo apt-get install -y openjdk-17-jdk'
-                    sh 'sudo apt-get install -y maven'
-                    sh 'sudo apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common'
-                    sh 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -'
-                    sh 'sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"'
-                    sh 'sudo apt-get update && sudo apt-get install -y docker-ce docker-ce-cli containerd.io'
-                    sh 'sudo usermod -aG docker \$(whoami)'
-                    sh 'sudo systemctl start docker'
-                    sh 'sudo systemctl enable docker'
-                    sh 'sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-\$(uname -s)-\$(uname -m)" -o /usr/local/bin/docker-compose'
-                    sh 'sudo chmod +x /usr/local/bin/docker-compose'
+                    sh 'sudo -s apt-get update && sudo -s apt-get install -y openjdk-17-jdk'
+                    sh 'sudo -s apt-get install -y maven'
+                    sh 'sudo -s apt-get install -y apt-transport-https ca-certificates curl gnupg-agent software-properties-common'
+                    sh 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo -s apt-key add -'
+                    sh 'sudo -s add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"'
+                    sh 'sudo -s apt-get update && sudo -s apt-get install -y docker-ce docker-ce-cli containerd.io'
+                    sh 'sudo -s usermod -aG docker \$(whoami)'
+                    sh 'sudo -s systemctl start docker'
+                    sh 'sudo -s systemctl enable docker'
+                    sh 'sudo -s curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-\$(uname -s)-\$(uname -m)" -o /usr/local/bin/docker-compose'
+                    sh 'sudo -s chmod +x /usr/local/bin/docker-compose'
                 }
             }
         }
