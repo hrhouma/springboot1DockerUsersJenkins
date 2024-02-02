@@ -1,0 +1,3 @@
+touch script1.sh script2.sh script3.sh script4.sh
+chmod 777 script1.sh script2.sh script3.sh script4.sh
+az group delete --name jenkins-rg --yes --no-wait
