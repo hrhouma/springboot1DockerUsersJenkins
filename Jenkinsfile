@@ -26,7 +26,7 @@ pipeline {
 					sh 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg'
 					// Here we use "jammy" directly instead of "$(lsb_release -cs)"
 					sh 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu jammy stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null'
-					sh 'sudo apt-get update'
+					//sh 'sudo apt-get update'
 					sh 'sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin'
 					sh 'docker --version'
 
