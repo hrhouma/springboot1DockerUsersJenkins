@@ -9,8 +9,7 @@ Ce projet illustre la mise en place d'une API REST en Java utilisant Spring Boot
 
 ## Premières instructions
 ```shell
-# Open port 8080 for Jenkins
-az vm open-port --resource-group jenkins-rg --name jenkins-vm --port 8080 --priority 1010
+
 git clone https://github.com/hrhouma/springboot1DockerUsersJenkins.git
 cd ./springboot1DockerUsersJenkins/
 cd './Shell VM + Installer JENKINS AZURE/'
@@ -18,8 +17,14 @@ chmod 777 ./script1.sh ./script2.sh ./script3.sh ./script4.sh
 ./script4.sh
 ```
 ## En cas de difficultés
-```shell
 
+### À l'extérieur de la VM: Open port 8080 for Jenkins
+```shell
+az vm open-port --resource-group jenkins-rg --name jenkins-vm --port 8080 --priority 1010
+```
+### À l'intérieur de la VM: 
+
+```shell
 #!/bin/bash
 
 # Mise à jour des paquets
