@@ -7,6 +7,7 @@ Ce projet illustre la mise en place d'une API REST en Java utilisant Spring Boot
 - Article de référence sur le développement de l'API : [DEV.TO](https://dev.to/francescoxx/java-crud-rest-api-using-spring-boot-hibernate-postgres-docker-and-docker-compose-5cln)
 - Code source sur GitHub : [FrancescoXX/java-live-api](https://github.com/FrancescoXX/java-live-api), [hrhouma/springboot1DockerUsers](https://github.com/hrhouma/springboot1DockerUsers.git)
 
+## Premières instructions
 ```shell
 # Open port 8080 for Jenkins
 az vm open-port --resource-group jenkins-rg --name jenkins-vm --port 8080 --priority 1010
@@ -16,6 +17,46 @@ cd './Shell VM + Installer JENKINS AZURE/'
 chmod 777 ./script1.sh ./script2.sh ./script3.sh ./script4.sh
 ./script4.sh
 ```
+## En cas de difficultés
+```shell
+#!/bin/bash
+
+# Mise à jour des paquets
+sudo apt update
+# Installation des paquets nécessaires pour Jenkins
+sudo apt install -y fontconfig openjdk-17-jre
+# Téléchargement et ajout de la clé GPG Jenkins
+sudo wget -O /usr/share/keyrings/jenkins-keyring.asc https://pkg.jenkins.io/debian-stable/jenkins.io-2023.key
+echo deb [signed-by=/usr/share/keyrings/jenkins-keyring.asc] https://pkg.jenkins.io/debian-stable binary/ | sudo tee /etc/apt/sources.list.d/jenkins.list > /dev/null
+# Mise à jour des sources apt pour Jenkins
+sudo apt-get update
+# Installation de Jenkins
+sudo apt-get install -y jenkins
+# Activation et démarrage du service Jenkins
+sudo systemctl enable jenkins
+sudo systemctl start jenkins
+
+# Installation de Docker
+# Mise à jour des paquets
+sudo apt-get update
+# Installation des paquets nécessaires pour Docker
+sudo apt-get install -y apt-transport-https ca-certificates curl software-properties-common
+# Ajout de la clé GPG Docker
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+# Ajout du dépôt Docker à sources.list
+sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable"
+# Mise à jour des sources apt pour Docker
+sudo apt-get update
+# Installation de Docker
+sudo apt-get install -y docker-ce docker-ce-cli containerd.io
+# Ajout de l'utilisateur au groupe docker pour exécuter des commandes Docker sans sudo
+sudo usermod -aG docker azureuser
+# Activation et démarrage du service Docker
+sudo systemctl enable docker
+sudo systemctl start docker
+sudo systemctl status jenkins
+```
+
 
 ## 1. Installation
 
