@@ -8,6 +8,8 @@ Ce projet illustre la mise en place d'une API REST en Java utilisant Spring Boot
 - Code source sur GitHub : [FrancescoXX/java-live-api](https://github.com/FrancescoXX/java-live-api), [hrhouma/springboot1DockerUsers](https://github.com/hrhouma/springboot1DockerUsers.git)
 
 ```shell
+# Open port 8080 for Jenkins
+az vm open-port --resource-group jenkins-rg --name jenkins-vm --port 8080 --priority 1010
 git clone https://github.com/hrhouma/springboot1DockerUsersJenkins.git
 cd ./springboot1DockerUsersJenkins/
 cd './Shell VM + Installer JENKINS AZURE/'
