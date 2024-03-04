@@ -7,6 +7,12 @@ Ce projet illustre la mise en place d'une API REST en Java utilisant Spring Boot
 - Article de référence sur le développement de l'API : [DEV.TO](https://dev.to/francescoxx/java-crud-rest-api-using-spring-boot-hibernate-postgres-docker-and-docker-compose-5cln)
 - Code source sur GitHub : [FrancescoXX/java-live-api](https://github.com/FrancescoXX/java-live-api), [hrhouma/springboot1DockerUsers](https://github.com/hrhouma/springboot1DockerUsers.git)
 
+```shell
+git clone https://github.com/hrhouma/springboot1DockerUsersJenkins.git
+cd ./springboot1DockerUsersJenkins/
+cd './Shell VM + Installer JENKINS AZURE/'
+```
+
 ## 1. Installation
 
 Suivez ces étapes pour installer et démarrer le projet :
