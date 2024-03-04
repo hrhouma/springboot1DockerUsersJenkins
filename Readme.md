@@ -19,6 +19,7 @@ chmod 777 ./script1.sh ./script2.sh ./script3.sh ./script4.sh
 ```
 ## En cas de difficultés
 ```shell
+
 #!/bin/bash
 
 # Mise à jour des paquets
@@ -346,3 +347,8 @@ pipeline {
 - **Personnalisation** : Adaptez le script de pipeline en fonction de vos besoins spécifiques, comme l'ajout de notifications, de déploiements conditionnels, etc.
 
 Ce guide vous a présenté comment configurer un pipeline d'intégration continue dans Jenkins pour travailler avec Docker et Docker Hub, en prenant en compte la construction, les tests, et le déploiement d'une application Java.
+
+# NE PAS OUBLIER !!!!!
+```shell
+ az group delete --name jenkins-rg --yes --no-wait
+ ```
