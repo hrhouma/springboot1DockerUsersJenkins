@@ -11,6 +11,7 @@ pipeline {
         stage('Setup Environment') {
 	    steps {
 	        script {
+		    sh 'sudo -s'
 	            // Install Java
 	            sh 'apt-get update'
 	            sh 'apt-get install -y openjdk-17-jdk'
