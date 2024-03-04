@@ -11,6 +11,8 @@ Ce projet illustre la mise en place d'une API REST en Java utilisant Spring Boot
 git clone https://github.com/hrhouma/springboot1DockerUsersJenkins.git
 cd ./springboot1DockerUsersJenkins/
 cd './Shell VM + Installer JENKINS AZURE/'
+chmod 777 ./script1.sh ./script2.sh ./script3.sh ./script4.sh
+./script4.sh
 ```
 
 ## 1. Installation
