@@ -85,7 +85,7 @@ pipeline {
 
   }
   environment {
-    DOCKER_IMAGE = 'hrhouma1/java_app:1.0.0'
+    DOCKER_IMAGE = 'hrehouma1/java_app:1.0.0'
     CONTAINER_NAME = 'java_app'
     DATABASE_URL = 'jdbc:postgresql://java_db:5432/postgres'
     DATABASE_USERNAME = 'postgres'
