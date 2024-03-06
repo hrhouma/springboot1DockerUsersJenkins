@@ -4,6 +4,8 @@ pipeline {
     stage('Setup Environment') {
       steps {
         script {
+          // Install OpenJDK
+          sh 'sudo apt-get update'
           sh 'sudo apt-get install -y openjdk-17-jdk'
           sh 'java -version'
 
@@ -11,20 +13,19 @@ pipeline {
           sh 'sudo apt-get install -y maven'
           sh 'mvn -v'
 
-          // Install Docker
-          sh 'sudo apt-get install -y ca-certificates curl gnupg'
+          // Prepare Docker repository and install Docker
+          sh 'sudo apt-get install -y ca-certificates curl gnupg lsb-release'
           sh 'sudo install -m 0755 -d /etc/apt/keyrings'
-          //sh 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg'
           sh 'curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --batch --yes --dearmor -o /etc/apt/keyrings/docker.gpg'
           sh 'sudo chmod a+r /etc/apt/keyrings/docker.gpg'
-          sh 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(. /etc/os-release && echo $VERSION_CODENAME) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null'
-          //sh 'sudo apt-get update'
+          sh 'echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null'
+          sh 'sudo apt-get update'
           sh 'sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin'
           sh 'docker --version'
 
           // Add the Jenkins user to the Docker group
           sh 'sudo usermod -aG docker jenkins'
-          // Start and enable Docker service
+          // Restart and enable Docker service to apply user group changes
           sh 'sudo systemctl restart docker'
           sh 'sudo systemctl enable docker'
 
@@ -33,7 +34,6 @@ pipeline {
           sh 'sudo chmod +x /usr/local/bin/docker-compose'
           sh 'docker-compose --version'
         }
-
       }
     }
 
@@ -48,21 +48,13 @@ pipeline {
         script {
           sh 'mvn clean package -DskipTests'
         }
-
       }
     }
 
-   
-    
     stage('Test') {
       steps {
         echo 'Running Tests...'
       }
     }
-
-
-
-
-
   }
 }
