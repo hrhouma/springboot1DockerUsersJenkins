@@ -5,7 +5,7 @@ pipeline {
       steps {
         script {
           // Install OpenJDK
-          sh 'sudo apt-get update'
+          // sh 'sudo apt-get update'
           sh 'sudo apt-get install -y openjdk-17-jdk'
           sh 'java -version'
 
