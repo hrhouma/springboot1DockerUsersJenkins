@@ -42,7 +42,7 @@ chmod 777 ./script1.sh ./script2.sh ./script3.sh ./script4.sh
 ```shell
 az vm open-port --resource-group jenkins-rg --name jenkins-vm --port 8080 --priority 1010
 ```
-### À l'intérieur de la VM: 
+### À l'intérieur de la VM ( à ignorer): 
 
 ```shell
 #!/bin/bash
