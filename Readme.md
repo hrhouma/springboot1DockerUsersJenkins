@@ -7,7 +7,27 @@ Ce projet illustre la mise en place d'une API REST en Java utilisant Spring Boot
 - Article de référence sur le développement de l'API : [DEV.TO](https://dev.to/francescoxx/java-crud-rest-api-using-spring-boot-hibernate-postgres-docker-and-docker-compose-5cln)
 - Code source sur GitHub : [FrancescoXX/java-live-api](https://github.com/FrancescoXX/java-live-api), [hrhouma/springboot1DockerUsers](https://github.com/hrhouma/springboot1DockerUsers.git)
 
-## Premières instructions
+## Les instructions de la première machine 
+```shell
+
+git clone https://github.com/hrhouma/springboot1DockerUsersJenkins.git
+cd ./springboot1DockerUsersJenkins/
+chmod 777 ./script1.sh ./script2.sh ./script3.sh ./script4.sh
+./script1.sh
+./script2.sh
+./script3.sh 
+./script4.sh
+ssh azureuser@IP
+sudo -s
+sudo visudo
+jenkins ALL=(ALL) NOPASSWD: ALL
+// eleve ALL=(ALL) NOPASSWD: ALL
+// eleve ALL=(ALL) NOPASSWD: /usr/bin/apt-get install -y openjdk-17-jdk, /usr/bin/apt-get install -y maven
+
+```
+
+
+## Les instructions de la deuxième machine (à ignorer)
 ```shell
 
 git clone https://github.com/hrhouma/springboot1DockerUsersJenkins.git
