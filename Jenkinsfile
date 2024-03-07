@@ -76,7 +76,7 @@ pipeline {
         echo 'Publishing Image to Docker Hub...'
         withCredentials(bindings: [usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
           sh 'echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin'
-          sh "docker push ${DOCKER_IMAGE}"
+          sh "sudo docker push ${DOCKER_IMAGE}"
         }
 
       }
@@ -93,8 +93,8 @@ pipeline {
   post {
     always {
       echo 'Cleaning up...'
-      sh 'docker-compose -f docker-compose.yml down'
-      sh 'docker rmi $(docker images -f "dangling=true" -q) || true'
+      sh 'sudo docker-compose -f docker-compose.yml down'
+      sh 'sudo docker rmi $(docker images -f "dangling=true" -q) || true'
     }
 
   }
