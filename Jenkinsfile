@@ -54,14 +54,14 @@ pipeline {
     stage('Build') {
       steps {
         echo 'Building Docker Image...'
-        sh 'docker-compose -f docker-compose.yml build'
+        sh 'sudo docker-compose -f docker-compose.yml build'
       }
     }
 
     stage('Run') {
       steps {
         echo 'Starting Docker Compose Services...'
-        sh 'docker-compose -f docker-compose.yml up -d'
+        sh 'sudo docker-compose -f docker-compose.yml up -d'
       }
     }
 
