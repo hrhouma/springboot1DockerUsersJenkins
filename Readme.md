@@ -1,6 +1,7 @@
 # Partie 1 - Java CRUD REST API avec Spring Boot, Hibernate, PostgreSQL, Docker, et Docker Compose
 
 Ce projet illustre la mise en place d'une API REST en Java utilisant Spring Boot, Hibernate, PostgreSQL, Docker, et Docker Compose.
+https://www.freecodecamp.org/news/automate-mern-app-deployment-with-jenkins/
 
 ## Ressources
 
