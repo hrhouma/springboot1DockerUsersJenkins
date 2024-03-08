@@ -4,6 +4,8 @@ pipeline {
     stage('Setup Environment') {
       steps {
         script {
+          // Install OpenJDK
+          // sh 'sudo apt-get update'
           sh 'sudo apt-get install -y openjdk-17-jdk'
           sh 'java -version'
 
@@ -32,7 +34,6 @@ pipeline {
           sh 'sudo chmod +x /usr/local/bin/docker-compose'
           sh 'docker-compose --version'
         }
-
       }
     }
 
@@ -47,21 +48,6 @@ pipeline {
         script {
           sh 'mvn clean package -DskipTests'
         }
-
-      }
-    }
-
-    stage('Build') {
-      steps {
-        echo 'Building Docker Image...'
-        sh 'sudo docker-compose -f docker-compose.yml build'
-      }
-    }
-
-    stage('Run') {
-      steps {
-        echo 'Starting Docker Compose Services...'
-        sh 'sudo docker-compose -f docker-compose.yml up -d'
       }
     }
 
@@ -70,8 +56,4 @@ pipeline {
         echo 'Running Tests...'
       }
     }
-
-    
-
   }
-}
