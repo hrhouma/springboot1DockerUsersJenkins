@@ -159,6 +159,15 @@ Content-Type: application/json
 
 Utilisez l'extension REST Client de VS Code pour envoyer ces requêtes : [REST Client on Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=humao.rest-client).
 
+
+## Autres commandes 
+
+mvn -version
+mvn clean install 
+(ou en cas d'erreurs) 	mvn clean package -DskipTests
+mvn clean install -DskipTests
+mvn spring-boot:run
+  
 ## 4. Aller Plus Loin Avec PostgreSQL
 
 Pour approfondir vos connaissances sur PostgreSQL, consultez [ce tutoriel sur Tutorialspoint](https://www.tutorialspoint.com/postgresql/postgresql_select_query.htm).
