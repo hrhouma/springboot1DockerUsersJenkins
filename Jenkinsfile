@@ -71,31 +71,7 @@ pipeline {
       }
     }
 
-    stage('Publish') {
-      steps {
-        echo 'Publishing Image to Docker Hub...'
-        withCredentials(bindings: [usernamePassword(credentialsId: 'docker-hub-credentials', usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD')]) {
-          sh 'echo $DOCKERHUB_PASSWORD | docker login --username $DOCKERHUB_USERNAME --password-stdin'
-          sh "sudo docker push ${DOCKER_IMAGE}"
-        }
-
-      }
-    }
-
-  }
-  environment {
-    DOCKER_IMAGE = 'hrehouma1/java_app:1.0.0'
-    CONTAINER_NAME = 'java_app'
-    DATABASE_URL = 'jdbc:postgresql://java_db:5432/postgres'
-    DATABASE_USERNAME = 'postgres'
-    DATABASE_PASSWORD = 'postgres'
-  }
-  post {
-    always {
-      echo 'Cleaning up...'
-      sh 'sudo docker-compose -f docker-compose.yml down'
-      sh 'sudo docker rmi $(docker images -f "dangling=true" -q) || true'
-    }
+    
 
   }
 }
