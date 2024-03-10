@@ -161,12 +161,13 @@ Utilisez l'extension REST Client de VS Code pour envoyer ces requêtes : [REST C
 
 
 ## Autres commandes 
-
+```shell
 mvn -version
 mvn clean install 
 (ou en cas d'erreurs) 	mvn clean package -DskipTests
 mvn clean install -DskipTests
 mvn spring-boot:run
+```
   
 ## 4. Aller Plus Loin Avec PostgreSQL
 
